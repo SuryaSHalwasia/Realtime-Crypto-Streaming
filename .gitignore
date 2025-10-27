@@ -1,0 +1,38 @@
+# dependencies
+node_modules/
+apps/*/node_modules/
+.pnpm-store/
+
+# build outputs
+dist/
+.next/
+out/
+build/
+
+# TypeScript
+*.tsbuildinfo
+
+# env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# editor / system
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# playwright cache
+.playwright/
+test-results/
+blob-report/

@@ -1,0 +1,12 @@
+version: v1
+plugins:
+  - plugin: es
+    out: src/gen
+    opt:
+      - target=ts
+      - import_extension=.ts       # ← include the dot
+  - plugin: connect-es
+    out: src/gen
+    opt:
+      - target=ts
+      - import_extension=.ts       # ← include the dot

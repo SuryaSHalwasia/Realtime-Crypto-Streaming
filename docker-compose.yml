@@ -1,0 +1,30 @@
+services:
+  server:
+    build:
+      context: .
+      target: server
+      args:
+        # for local hacking; set to "true" in CI once you commit pnpm-lock.yaml
+        PNPM_FROZEN_LOCKFILE: "false"
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        PNPM_FROZEN_LOCKFILE: "false"
+    environment:
+      NODE_ENV: production
+      # browser → API inside compose network
+      NEXT_PUBLIC_API_URL: http://server:8080
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    restart: unless-stopped

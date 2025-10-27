@@ -1,0 +1,27 @@
+{
+  "name": "@pluto/server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "dev:tv:probe": "tsx src/dev-tv-probe.ts",
+    "dev:rpc:probe": "tsx src/dev-rpc-probe.ts",   
+    "dev:api": "tsx watch src/connect/server.ts",  
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0",
+    "@pluto/api": "workspace:*",
+    "@bufbuild/protobuf": "^1.10.0",
+    "@connectrpc/connect": "^1.7.0",
+    "@connectrpc/connect-node": "^1.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

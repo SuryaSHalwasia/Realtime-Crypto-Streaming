@@ -1,0 +1,18 @@
+syntax = "proto3";
+package pluto.prices.v1;
+
+message SubscribeRequest { repeated string symbols = 1; }
+message PriceTick {
+  string symbol = 1;
+  string exchange = 2; // "BINANCE"
+  double price = 3;
+  int64 ts_ms = 4;
+}
+
+message GetLastPricesRequest { repeated string symbols = 1; }
+message GetLastPricesResponse { repeated PriceTick ticks = 1; }
+
+service PriceService {
+  rpc Subscribe(SubscribeRequest) returns (stream PriceTick);
+  rpc GetLastPrices(GetLastPricesRequest) returns (GetLastPricesResponse);
+}

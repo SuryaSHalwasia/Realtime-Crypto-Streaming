@@ -1,0 +1,16 @@
+{
+  "name": "pluto-workspace",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@bufbuild/protobuf": "1.10.1"
+    }
+  }
+}

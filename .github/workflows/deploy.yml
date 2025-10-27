@@ -1,0 +1,66 @@
+# .github/workflows/deploy.yml
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Ensure the target directory exists and is owned by the SSH user
+      - name: Prepare target directory on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script_stop: true
+          script: |
+            set -e
+            sudo mkdir -p "${{ secrets.EC2_PATH }}"
+            sudo chown -R $USER:$USER "${{ secrets.EC2_PATH }}"
+
+      # Clean contents (not the directory) so we don't need sudo on /opt/*
+      - name: Clean target contents
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script_stop: true
+          script: |
+            set -e
+            dir="${{ secrets.EC2_PATH }}"
+            # remove files, dotfiles, and dot-dirs (but keep the dir itself)
+            rm -rf "$dir"/* "$dir"/.[!.]* "$dir"/..?* || true
+
+      # Upload the repo to the target directory (do NOT remove the dir)
+      - name: Upload source to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          source: "."
+          target: ${{ secrets.EC2_PATH }}
+          overwrite: true
+          # rm: false  # default; do not delete the folder itself
+
+      # Run your deploy script (build + PM2 reload)
+      - name: Run deploy script on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script_stop: true
+          script: |
+            set -e
+            cd "${{ secrets.EC2_PATH }}"
+            bash scripts/deploy.sh

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "rootDirs": ["./src", "../../packages/api/src"],
+
+    "baseUrl": ".",
+    "paths": {
+      "@pluto/api/*": ["../../packages/api/src/*"],
+      "@pluto/api/gen/*": ["../../packages/api/src/gen/*"]
+    },
+    "types": ["node"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
+}
