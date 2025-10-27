@@ -9,7 +9,7 @@
 - 🐳 **Dockerized** runtime + 🤖 **GitHub Actions** for CI/CD deployment to **EC2** with CORS/health endpoints and graceful shutdown.
 ---
 
-## What I Built 🛠️
+## Project Details
 
 ### Frontend (Next.js / React)
 - 📈 **TickerBoard/Grid/Cards** with clean typography, tabular numerals, and compact **Sparkline**.
@@ -47,9 +47,4 @@
 - 🧯 Clear, user-visible errors (“Invalid symbol”, “Already added”, “Invalid symbol format”).
 
 ---
-
-## Future Improvements 🔮
-- ⚡ **Speed up initial boot time**: pre-warm contexts, smarter BrowserPool reuse, and lazy symbol probes.
-- 🔤 **Auto-suggest / spell-check** tickers (fuzzy matching against exchange listings).
-- 📈 **ML-based price hints** (lightweight model with confidence bands; opt-in and clearly labeled as predictive).
 
